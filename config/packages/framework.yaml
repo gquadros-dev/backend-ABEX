@@ -1,9 +1,18 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
+# config/packages/framework.yaml
+
 framework:
     secret: '%env(APP_SECRET)%'
 
     # Note that the session will be started ONLY if you read or write from it.
     session: true
+
+    # Habilita o componente Serializer do Symfony
+    # Essencial para converter entidades PHP para JSON/XML e vice-versa
+    serializer:
+        # A opção 'enable_annotations' foi descontinuada ou renomeada em versões recentes do Symfony.
+        # Agora, o Serializer detecta automaticamente os PHP Attributes (#[...]) a partir do PHP 8.
+        # Para garantir que o serializador esteja ativo, use 'enabled: true'.
+        enabled: true
 
     #esi: true
     #fragments: true

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block body %}
+    <div class="card shadow-sm p-4">
+        <h1 class="text-primary mb-3">{{ titulo_pagina }}</h1>
+        <p class="lead text-secondary">{{ mensagem }}</p>
+
+        <h2 class="text-info mt-4 mb-3">Nossas Categorias</h2>
+        <ul class="list-unstyled">
+            <li><span class="badge bg-secondary me-2">.</span>Camisetas</li>
+            <li><span class="badge bg-secondary me-2">.</span>Calças</li>
+            <li><span class="badge bg-secondary me-2">.</span>Vestidos</li>
+            <li><span class="badge bg-secondary me-2">.</span>Jaquetas</li>
+            <li><span class="badge bg-secondary me-2">.</span>Blusas</li>
+            <li><span class="badge bg-secondary me-2">.</span>Bermudas</li>
+        </ul>
+
+        <p class="mt-4 text-muted">
+            Fique à vontade para navegar e encontrar o que você procura!
+        </p>
+    </div>
+{% endblock %}

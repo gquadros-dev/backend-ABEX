@@ -1,11 +1,13 @@
 <?php
-// src/Entity/Produto.php (Atualizada: Adicionada OneToMany para PedidoProduto)
+
+// src/Entity/Produto.php
 namespace App\Entity;
 
 use App\Repository\ProdutoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups; // Importar a anotação Groups
 
 #[ORM\Entity(repositoryClass: ProdutoRepository::class)]
 #[ORM\Table(name: 'public.produtos')]
@@ -14,29 +16,40 @@ class Produto
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['produto:read'])] // Adicionado
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $fotoPath = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $nome = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $descricao = null;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $preco = null;
 
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $categoria = null;
 
     #[ORM\Column(type: 'string', length: 20)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?string $disponibilidade = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['produto:read'])] // Adicionado
     private ?int $estoque = null;
 
+    // As coleções de relacionamentos geralmente não são serializadas diretamente
+    // a menos que você queira aninhar esses dados na resposta JSON.
+    // Para evitar ciclos infinitos e excesso de dados, é comum não serializá-las aqui.
     #[ORM\OneToMany(mappedBy: 'produto', targetEntity: CarrinhoProduto::class, orphanRemoval: true)]
     private Collection $carrinhoProdutos;
 
@@ -44,13 +57,13 @@ class Produto
     private Collection $catalogoProdutos;
 
     #[ORM\OneToMany(mappedBy: 'produto', targetEntity: PedidoProduto::class, orphanRemoval: true)]
-    private Collection $pedidoProdutos; // Nova coleção para PedidoProduto
+    private Collection $pedidoProdutos;
 
     public function __construct()
     {
         $this->carrinhoProdutos = new ArrayCollection();
         $this->catalogoProdutos = new ArrayCollection();
-        $this->pedidoProdutos = new ArrayCollection(); // Inicializa nova coleção
+        $this->pedidoProdutos = new ArrayCollection();
     }
 
     public function getId(): ?int

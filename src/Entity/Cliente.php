@@ -6,6 +6,7 @@ use App\Repository\ClienteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups; // Importar a anotação Groups
 
 #[ORM\Entity(repositoryClass: ClienteRepository::class)]
 #[ORM\Table(name: 'public.cliente')]
@@ -16,21 +17,27 @@ class Cliente
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?string $nome = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?string $email = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?string $endereco = null;
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?string $telefone = null;
 
     #[ORM\Column(type: 'string', length: 9, nullable: true)]
+    #[Groups(['cliente:read'])] // Adicionado
     private ?string $cep = null;
 
     #[ORM\OneToMany(mappedBy: 'cliente', targetEntity: CarrinhoDeCompras::class, orphanRemoval: true)]
