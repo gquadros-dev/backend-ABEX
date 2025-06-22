@@ -1,6 +1,4 @@
 <?php
-
-// src/Controller/ProdutoController.php
 namespace App\Controller\Api;
 
 use App\Repository\ProdutoRepository;
@@ -38,14 +36,14 @@ class ProdutoController extends AbstractController
         #[MapQueryParameter] int $offset = 0,
         // Mapeia o parâmetro de query 'limit' para a variável $limit.
         // Se não for fornecido, usa o valor padrão 30.
-        #[MapQueryParameter] int $limit = 30
+        #[MapQueryParameter] int $limit = 100
     ): JsonResponse {
         // Validação básica para garantir que offset e limit são valores positivos.
         if ($offset < 0) {
             $offset = 0;
         }
         if ($limit < 1) {
-            $limit = 30;
+            $limit = 100;
         }
 
         $produtos = $this->produtoRepository->findBy([], ['id' => 'ASC'], $limit, $offset);
